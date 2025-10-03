@@ -7,29 +7,31 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 
 class DetailActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        val detailImageView: ImageView = findViewById(R.id.detailImage)
-        val detailTitleTextView: TextView = findViewById(R.id.detailTitle)
-        val detailDescriptionTextView: TextView = findViewById(R.id.detailDescription)
+        val image: ImageView = findViewById(R.id.detailImage)
+        val title: TextView = findViewById(R.id.detailTitle)
+        val description: TextView = findViewById(R.id.detailDescription)
 
-        // Retrieve data passed via Intent
-        val park = intent.getSerializableExtra(PARK_EXTRA) as? Park
-        val campground = intent.getSerializableExtra(CAMPGROUND_EXTRA) as? Campground
+        // Try Park first
+        val park = intent.getSerializableExtra(NavExtras.PARK_EXTRA) as? Park
 
-        // Populate UI based on type
+        // (Optional) If you later wire Campgrounds, you can pass a Campground model and read it here:
+        // val campground = intent.getSerializableExtra(NavExtras.CAMPGROUND_EXTRA) as? Campground
+
         when {
             park != null -> {
-                detailTitleTextView.text = park.fullName
-                detailDescriptionTextView.text = park.description
-                Glide.with(this).load(park.imageUrl).into(detailImageView)
+                title.text = park.fullName ?: "Park"
+                description.text = park.description ?: ""
+                park.imageUrl?.let { Glide.with(this).load(it).into(image) } ?: image.setImageDrawable(null)
             }
-            campground != null -> {
-                detailTitleTextView.text = campground.name
-                detailDescriptionTextView.text = campground.description
-                Glide.with(this).load(campground.imageUrl).into(detailImageView)
+            else -> {
+                title.text = "Details"
+                description.text = ""
+                image.setImageDrawable(null)
             }
         }
     }

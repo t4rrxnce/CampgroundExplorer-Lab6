@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CampgroundFragment">
+    tools:context=".ParksFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/campgrounds"
+        android:id="@+id/parks"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_campground" />
+        tools:listitem="@layout/item_park" />
 </FrameLayout>

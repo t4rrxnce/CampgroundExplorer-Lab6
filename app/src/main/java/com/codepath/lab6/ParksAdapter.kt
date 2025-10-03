@@ -10,42 +10,42 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-const val PARK_EXTRA = "PARK_EXTRA"
+class ParksAdapter(
+    private val context: Context,
+    private val items: List<Park>
+) : RecyclerView.Adapter<ParksAdapter.VH>() {
 
-class ParksAdapter(private val context: Context, private val parks: List<Park>) :
-    RecyclerView.Adapter<ParksAdapter.ViewHolder>() {
+    class VH(view: View) : RecyclerView.ViewHolder(view) {
+        val image: ImageView = view.findViewById(R.id.parkImage)
+        val name: TextView = view.findViewById(R.id.parkName)
+        val desc: TextView = view.findViewById(R.id.parkDesc)
+    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val view = LayoutInflater.from(context).inflate(R.layout.item_park, parent, false)
-        return ViewHolder(view)
+        return VH(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(parks[position])
-    }
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        val p = items[position]
+        holder.name.text = p.fullName ?: "Unnamed Park"
+        holder.desc.text = p.description ?: ""
 
-    override fun getItemCount() = parks.size
-
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        private val parkImageView: ImageView = itemView.findViewById(R.id.itemParkImage)
-        private val parkNameTextView: TextView = itemView.findViewById(R.id.itemParkTitle)
-        private val parkDescriptionTextView: TextView = itemView.findViewById(R.id.itemParkDescription)
-
-        init {
-            itemView.setOnClickListener(this)
+        val url = p.imageUrl
+        if (!url.isNullOrBlank()) {
+            Glide.with(context).load(url).into(holder.image)
+        } else {
+            holder.image.setImageDrawable(null)
         }
 
-        fun bind(park: Park) {
-            parkNameTextView.text = park.fullName
-            parkDescriptionTextView.text = park.description
-            Glide.with(context).load(park.imageUrl).into(parkImageView)
-        }
-
-        override fun onClick(v: View?) {
-            val park = parks[absoluteAdapterPosition]
+        holder.itemView.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra(PARK_EXTRA, park)
+            intent.putExtra(NavExtras.PARK_EXTRA, p)  // <- send the Park
             context.startActivity(intent)
         }
     }
+
+    override fun getItemCount(): Int = items.size
 }
+
+

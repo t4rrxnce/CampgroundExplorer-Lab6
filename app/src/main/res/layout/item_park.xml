@@ -4,52 +4,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="12dp">
 
-    <!-- Park Image -->
     <ImageView
-        android:id="@+id/itemParkImage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:contentDescription="Park Image"
+        android:id="@+id/parkImage"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:scaleType="centerCrop"
-        android:layout_marginEnd="12dp"
-        app:layout_constraintWidth_percent="0.35"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <!-- Park Title -->
     <TextView
-        android:id="@+id/itemParkTitle"
+        android:id="@+id/parkName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:text="Park Name"
         android:textStyle="bold"
         android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:ellipsize="end"
-        android:maxLines="2"
-        app:layout_constraintStart_toEndOf="@id/itemParkImage"
-        app:layout_constraintTop_toTopOf="@id/itemParkImage"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginStart="12dp"
+        app:layout_constraintStart_toEndOf="@id/parkImage"
+        app:layout_constraintTop_toTopOf="@id/parkImage"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Park Description -->
     <TextView
-        android:id="@+id/itemParkDescription"
+        android:id="@+id/parkDesc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:text="Park description..."
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
+        android:maxLines="3"
         android:ellipsize="end"
-        android:lineSpacingExtra="2dp"
-        android:maxLines="5"
-        app:layout_constraintStart_toEndOf="@id/itemParkImage"
-        app:layout_constraintTop_toBottomOf="@id/itemParkTitle"
-        app:layout_constraintBottom_toBottomOf="@id/itemParkImage"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        app:layout_constraintStart_toStartOf="@id/parkName"
+        app:layout_constraintTop_toBottomOf="@id/parkName"
+        app:layout_constraintEnd_toEndOf="@id/parkName"
+        android:layout_marginTop="4dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,10 @@
 <resources>
-    <string name="app_name">Parks and Campgrounds</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Campground</string>
+
+    <!-- Toolbar title -->
+    <string name="app_bar_title">Parks and Campgrounds</string>
+
+    <!-- Bottom nav labels -->
+    <string name="nav_parks">Parks</string>
+    <string name="nav_campgrounds">Campgrounds</string>
 </resources>
